@@ -11,9 +11,13 @@ function Navbar() {
       <div className="py-4 border-b-[1px] border-gray-200">
         <Container>
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
-            <Logo />
+            <div className="flex-1 flex justify-start">
+              <Logo />
+            </div>
             <Search />
-            <UserMenu />
+            <div className="flex-1 flex justify-end">
+              <UserMenu />
+            </div>
           </div>
         </Container>
       </div>

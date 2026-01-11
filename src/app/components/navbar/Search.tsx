@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import Counter from '../inputs/Counter';
@@ -13,6 +14,7 @@ enum STEPS {
 
 function Search() {
   const [step, setStep] = useState(STEPS.NONE);
+
   // Guest Counts
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -31,125 +33,145 @@ function Search() {
     <>
       {step !== STEPS.NONE && (
         <div
-          className="fixed inset-0 z-40 bg-transparent"
+          className="fixed inset-0 bg-transparent z-10"
           onClick={() => setStep(STEPS.NONE)}
         />
       )}
+
       <div
-        className={`border-[1px] w-full md:w-auto py-3 rounded-full shadow-sm hover:shadow-md transition cursor-pointer relative ${step !== STEPS.NONE ? "z-50 bg-white" : ""}`}
+        className={`flex flex-row items-center border border-gray-300 rounded-full shadow-sm hover:shadow-md transition relative z-20 ${step !== STEPS.NONE ? "bg-neutral-100" : "bg-white"}`}
+        style={{ height: '66px' }}
       >
-        <div className="flex flex-row items-center justify-between">
-          {/* WHERE */}
+        {/* Sliding Active Pill */}
+        {step !== STEPS.NONE && (
           <div
-            onClick={() => toggleStep(STEPS.WHERE)}
-            className={`text-sm font-semibold px-8 flex flex-col ${step === STEPS.WHERE ? "bg-gray-100/50 rounded-full" : ""}`}
-            style={{ minHeight: '60px', justifyContent: 'center' }}
-          >
-            <div>Where</div>
-            <div className="text-xs font-light text-gray-500">Search destinations</div>
-          </div>
+            className="absolute top-0 bottom-0 bg-white rounded-full shadow-md z-10 transition-all duration-300 ease-in-out"
+            style={{
+              left: step === STEPS.WHERE ? '0' : step === STEPS.WHEN ? '261px' : '502px',
+              width: step === STEPS.WHERE ? '260px' : step === STEPS.WHEN ? '240px' : '260px',
+            }}
+          />
+        )}
 
-          {/* WHEN */}
-          <div
-            onClick={() => toggleStep(STEPS.WHEN)}
-            className={`hidden sm:block text-sm font-semibold px-8 border-x-[1px] flex-1 text-center flex flex-col ${step === STEPS.WHEN ? "bg-gray-100/50 rounded-full border-none" : ""}`}
-            style={{ minHeight: '60px', justifyContent: 'center' }}
-          >
-            <div>When</div>
-            <div className="text-xs font-light text-gray-500">Add dates</div>
-          </div>
+        {/* WHERE */}
+        <div
+          onClick={() => toggleStep(STEPS.WHERE)}
+          className={`relative z-20 flex flex-col justify-center px-8 py-3 cursor-pointer rounded-full transition ${step !== STEPS.NONE ? "hover:bg-white/50" : "hover:bg-gray-100"} ${step === STEPS.WHERE ? "" : "bg-transparent"}`}
+          style={{ minWidth: '260px' }}
+        >
+          <div className="text-xs font-semibold mb-0.5">Where</div>
+          <input
+            type="text"
+            placeholder="Search destinations"
+            className="text-sm text-gray-500 bg-transparent border-none outline-none w-full placeholder-gray-400 cursor-pointer"
+            readOnly
+          />
+        </div>
 
-          {/* WHO */}
-          <div
-            onClick={() => toggleStep(STEPS.WHO)}
-            className={`text-sm pl-8 pr-3 text-gray-600 flex flex-row items-center gap-3 ${step === STEPS.WHO ? "bg-gray-100/50 rounded-full" : ""}`}
-            style={{ minHeight: '60px' }}
-          >
-            <div className="hidden sm:block flex flex-col items-start">
-              <div className="font-semibold text-black">Who</div>
-              <div className="text-xs font-light text-gray-500">Add guests</div>
-            </div>
-            <div className={`p-3 bg-rose-500 rounded-full text-white flex flex-row items-center transition-all duration-300 ease-in-out`}>
-              <BiSearch size={20} />
-              <div
-                className={`
+        {/* Separator */}
+        <div className={`relative z-20 h-10 w-px bg-gray-300 ${step !== STEPS.NONE ? "hidden" : "block"}`}></div>
+
+        {/* WHEN */}
+        <div
+          onClick={() => toggleStep(STEPS.WHEN)}
+          className={`relative z-20 hidden sm:flex flex-col justify-center px-8 py-3 cursor-pointer rounded-full transition ${step !== STEPS.NONE ? "hover:bg-white/50" : "hover:bg-gray-100"} ${step === STEPS.WHEN ? "" : "bg-transparent"}`}
+          style={{ minWidth: '240px' }}
+        >
+          <div className="text-xs font-semibold mb-0.5">When</div>
+          <div className="text-sm text-gray-400">Add dates</div>
+        </div>
+
+        {/* Separator */}
+        <div className={`relative z-20 hidden sm:block h-10 w-px bg-gray-300 ${step !== STEPS.NONE ? "hidden" : "block"}`}></div>
+
+        {/* WHO */}
+        <div
+          onClick={() => toggleStep(STEPS.WHO)}
+          className={`relative z-20 flex flex-row items-center px-6 py-3 cursor-pointer rounded-full transition gap-4 ${step !== STEPS.NONE ? "hover:bg-white/50" : "hover:bg-gray-100"} ${step === STEPS.WHO ? "" : "bg-transparent"}`}
+          style={{ minWidth: '260px' }}
+        >
+          <div className="flex flex-col justify-center flex-1">
+            <div className="text-xs font-semibold mb-0.5">Who</div>
+            <div className="text-sm text-gray-400">Add guests</div>
+          </div>
+          <div className={`bg-rose-500 rounded-full p-3 text-white hover:bg-rose-600 transition flex flex-row items-center justify-center shadow-md`}>
+            <BiSearch size={18} />
+            <div
+              className={`
                   text-sm 
-                  font-semibold 
+                  font-bold 
                   overflow-hidden 
                   transition-all 
                   duration-300 
                   ease-in-out
                   whitespace-nowrap
-                  ${step !== STEPS.NONE ? 'max-w-[100px] opacity-100 pl-2 pr-2' : 'max-w-0 opacity-0 px-0'}
+                  ${step !== STEPS.NONE ? 'max-w-[100px] opacity-100 pl-2 pr-1' : 'max-w-0 opacity-0 px-0'}
                 `}
-              >
-                Search
-              </div>
+            >
+              Search
             </div>
           </div>
         </div>
 
         {/* DROPDOWNS */}
-
         {/* WHERE DROPDOWN */}
         {step === STEPS.WHERE && (
-          <div className="absolute top-[100%] mt-2 left-1/2 -translate-x-1/2 w-[350px] bg-white rounded-3xl shadow-xl p-6 z-50 overflow-hidden border-[1px] cursor-default">
-            <div className="font-semibold mb-2 ml-2">Suggested destinations</div>
-            {['Kathmandu, Nepal', 'Pokhara, Nepal', 'Lalitpur, Nepal', 'Bhaktapur, Nepal'].map(place => (
-              <div key={place} className="flex items-center gap-4 p-3 hover:bg-neutral-100 rounded-xl cursor-pointer transition">
-                <div className="p-2 bg-neutral-100 rounded-lg">
-                  <BiSearch size={18} />
+          <div className="absolute top-full left-0 mt-2 bg-white rounded-3xl shadow-xl p-8 z-30" style={{ width: '500px' }}>
+            <h3 className="text-sm font-semibold mb-4">Suggested destinations</h3>
+            <div className="space-y-3">
+              {['Kathmandu, Nepal', 'Pokhara, Nepal', 'Lalitpur, Nepal', 'Bhaktapur, Nepal'].map(place => (
+                <div key={place} className="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg cursor-pointer transition">
+                  <div className="bg-gray-200 rounded-lg p-3">
+                    <BiSearch size={20} />
+                  </div>
+                  <div className="text-sm">{place}</div>
                 </div>
-                <div className="text-sm">{place}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 
         {/* WHEN DROPDOWN */}
         {step === STEPS.WHEN && (
-          <div className="absolute top-[100%] mt-2 left-1/2 -translate-x-1/2 w-[700px] z-50 cursor-default bg-white rounded-3xl shadow-xl p-6 border-[1px] overflow-hidden">
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white rounded-3xl shadow-xl p-8 z-30 w-[850px] overflow-hidden border border-neutral-100">
             <SearchCalendar />
           </div>
         )}
 
         {/* WHO DROPDOWN */}
         {step === STEPS.WHO && (
-          <div className="absolute top-[100%] mt-2 left-1/2 -translate-x-1/2 w-[400px] bg-white rounded-3xl shadow-xl p-6 z-50 border-[1px] cursor-default flex flex-col gap-6">
-            <Counter
-              title="Adults"
-              subtitle="Ages 13 or above"
-              value={adults}
-              onChange={(value) => setAdults(value)}
-            />
-            <hr />
-            <Counter
-              title="Children"
-              subtitle="Ages 2 – 12"
-              value={children}
-              onChange={(value) => setChildren(value)}
-            />
-            <hr />
-            <Counter
-              title="Infants"
-              subtitle="Under 2"
-              value={infants}
-              onChange={(value) => setInfants(value)}
-            />
-            <hr />
-            <Counter
-              title="Pets"
-              subtitle="Bringing a service animal?"
-              value={pets}
-              onChange={(value) => setPets(value)}
-            />
+          <div className="absolute top-full right-0 mt-2 bg-white rounded-3xl shadow-xl p-8 z-30" style={{ width: '400px' }}>
+            <div className="space-y-6">
+              <Counter
+                title="Adults"
+                subtitle="Ages 13 or above"
+                value={adults}
+                onChange={(value) => setAdults(value)}
+              />
+              <Counter
+                title="Children"
+                subtitle="Ages 2-12"
+                value={children}
+                onChange={(value) => setChildren(value)}
+              />
+              <Counter
+                title="Infants"
+                subtitle="Under 2"
+                value={infants}
+                onChange={(value) => setInfants(value)}
+              />
+              <Counter
+                title="Pets"
+                subtitle="Bringing a service animal?"
+                value={pets}
+                onChange={(value) => setPets(value)}
+              />
+            </div>
           </div>
         )}
-
       </div>
     </>
   );
 }
-
 
 export default Search;
