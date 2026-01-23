@@ -4,23 +4,27 @@ import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import Homes from "./Homes";
 
 function Navbar() {
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
-      <div className="py-4 border-b-[1px] border-gray-200">
-        <Container>
-          <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
-            <div className="flex-1 flex justify-start">
-              <Logo />
-            </div>
-            <Search />
-            <div className="flex-1 flex justify-end">
-              <UserMenu />
-            </div>
+      <Container>
+        {/* The Parent Container is now a Column */}
+        <div className="flex flex-col py-4 gap-4">
+          
+          {/* LAYER 1: Logo and Homes and UserMenu */}
+          <div className="flex flex-row items-center justify-between">
+            <Logo />
+            <Homes />
+            <UserMenu />
           </div>
-        </Container>
-      </div>
+            {/* LAYER 2: Search Bar */}
+          <div className="flex justify-center">
+            <Search />
+          </div>
+        </div>
+      </Container>
     </div>
   );
 }

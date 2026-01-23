@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Modal from './Modal';
-import { BiDollarCircle } from 'react-icons/bi';
 import { FaTags } from "react-icons/fa";
 
 const PriceDisplayModal = () => {

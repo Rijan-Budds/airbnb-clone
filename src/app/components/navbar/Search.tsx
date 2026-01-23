@@ -63,13 +63,13 @@ function Search() {
           <input
             type="text"
             placeholder="Search destinations"
-            className="text-sm text-gray-500 bg-transparent border-none outline-none w-full placeholder-gray-400 cursor-pointer"
-            readOnly
+            className="text-sm text-gray-500 bg-transparent border-none outline-none w-full placeholder-gray-400 cursor-text"
           />
         </div>
 
         {/* Separator */}
-        <div className={`relative z-20 h-10 w-px bg-gray-300 ${step !== STEPS.NONE ? "hidden" : "block"}`}></div>
+                <div className={`relative z-20 hidden sm:block h-10 w-px bg-gray-300 ${step !== STEPS.NONE ? "hidden" : "block"}`}></div>
+
 
         {/* WHEN */}
         <div
