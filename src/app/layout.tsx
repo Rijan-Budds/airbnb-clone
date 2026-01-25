@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import ClientOnly from "./components/ClientOnly";
 import PriceDisplayModal from "./components/modals/PriceDisplayModal";
 import LanguagesModal from "./components/modals/LanguagesModal";
+import HostModal from "./components/modals/HostModal";
 
 export const metadata: Metadata = {
   title: "Airbnb clone",
@@ -26,6 +27,7 @@ export default function RootLayout({
         <ClientOnly>
           <PriceDisplayModal />
           <LanguagesModal />
+          <HostModal />
           <Navbar />
         </ClientOnly>
         {children}
